@@ -20,18 +20,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="#">Some Store</a>
+        <a class="brand" href="#">6bey问答</a>
         <div class="nav-collapse">
           <ul class="nav">
-            <li><%= link_to "Browse Questions", questions_path %></li>
-            <li><%= link_to "Price List" %></li>
-            <li><%= link_to "Contact Us" %></li>
-            <li><%= link_to "Cart" %></li>
-            <%= render "common/user_nav" %>
+            <li><%= link_to "问题", questions_path %></li>
+            <li><%= link_to "待解决问题", questions_path(:no_answer => true) %></li>
+            <li><%= link_to "联系我们" %></li>
+            <li><%= link_to "标签",  tags_path%></li>
           </ul>
+          <%= render "common/user_nav" %>
         </div>
-   
-
       </div>
     </div>
   </div>
@@ -43,16 +41,13 @@
         <%= msg %>
       </div>
     <% end %>
-
+    <%= render(:partial => "layouts/alert")%>
     <div class="row">
       <div class="span9"><%= yield %></div>
       <div class="span3">
-        <h2>About Us</h2>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <%= render(:partial => "layouts/sidebar")%>
       </div>
     </div>
   </div>
 </body>
-
-
 </html>
