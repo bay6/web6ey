@@ -1,8 +1,25 @@
 Web6bey::Application.routes.draw do
+  resources :answers do
+    collection do
+      post 'accept'
+    end
+  end
+
+  get 'tags/:tag', to: 'questions#index', as: :tag
+
+  get 'tags', :controller => "tags", :action => 'index'
+  get 'tags/:id/edit', :controller => "tags", :action => 'edit', as: :edit_tag
+  put 'tags/:id', :controller => "tags", :action => 'update'
+
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
 
-  resources :questions
-
+  resources :questions do
+    resources :answers
+    collection do
+      post 'evaluate'
+      post 'viewed'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

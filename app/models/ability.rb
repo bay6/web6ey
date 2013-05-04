@@ -2,19 +2,23 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-   
-    user ||= User.new    
- 
+    user ||= User.new
+
     if user.has_role? :admin
-	can :manage, :all
+      can :manage, :all
     elsif user.has_role? :member
-	can :create, :Question
-	can :update, :Question do |question|
-	 # add user later
-	 # question.try(:user) == user || user.has_role?(:admin) 
-	end
+      can :read, :all
+      can [:evaluate, :viewed], Question
+      can :create, [Question, Answer]
+      can [:update, :destroy], Question do |question|
+        question.try(:user) == user
+      end
+      can [:update, :destroy], Answer do |answer|
+        answer.try(:user) == user
+      end
     else
-	can :read, :all
+      can :viewed, Question
+      can :read, :all
     end
   end
 end

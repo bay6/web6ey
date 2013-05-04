@@ -1,0 +1,20 @@
+<% @answers.each do |answer| %>
+
+  <div class="row">
+    <div class="span9"><%= simple_format answer.content%></div>
+  </div>
+
+  <div class="row">
+    <% if answer.accept%>
+      <div class="span2" style="color:red;"><%= t "accept_answer"%></div>
+      <div class="span2 offset6"><%= simple_format answer.user.username%></div>
+    <% else %>
+      <div class="span1 offset8"><%= simple_format answer.user.username%></div>
+    <% end %>
+  </div>
+
+  <% unless exist_any_accept_answer? @answers%>
+    <%= button_to 'accept',accept_answers_path(answer_id: answer.id, question_id: question.id), {class: 'btn btn-small'}%>
+  <% end %>
+  <hr>
+<% end %>
