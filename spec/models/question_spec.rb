@@ -43,15 +43,15 @@ describe Question do
     question2.tag_list = "a,b"
     expect(question2).to be_valid
   end
-  
+
   context "no answer question" do
     #FIXME should be a factory girl relation
     it "list all no answer questions" do
       user1 = create :user
       question1 = create :question
-      question1.answers.create(content: 'ab', user: user1)
+      question1.answers.create(content: 'ab', user_id: user1.id)
       3.times{create :question}
-      expect(Question.with_no_answer.count).to eql 3 
+      expect(Question.with_no_answer.count).to eql 3
       expect(Question.with_no_answer).to eq Question.where(answers_count: 0)
     end
   end
@@ -78,4 +78,27 @@ describe Question do
     question.user = user
     question.owner_username.should eq user.username
   end
+
+  context "question answer coverage " do
+    it "no answer for any question, the answer_coverage should 0" do
+      create :question
+      Question.answer_coverage.should == 0
+    end
+
+    it "one quetion had answered,one quetion had't answered, the the answer_coverage should 50" do
+      question1 = create :question
+      question2 = create :question
+      question1.answers_count = 1
+      question1.save
+      Question.answer_coverage.should == 50
+    end
+
+    it "all quetion had answered the the answer_coverage should 100" do
+      question1 = create :question
+      question1.answers_count = 1
+      question1.save
+      Question.answer_coverage.should == 100
+    end
+  end
+
 end

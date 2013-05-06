@@ -15,8 +15,13 @@
 FactoryGirl.define do
   factory :question do
     sequence(:title) {|n| "question#{n}"}
-    content "mycontext"
-    tag_list ""
+    content { Forgery(:lorem_ipsum).words(10) }
+    tag_list ''
     user
+
+    factory :invalid_question do
+      title nil
+      content nil
+    end
   end
 end
