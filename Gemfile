@@ -18,6 +18,8 @@ gem 'bootstrap-will_paginate'
 gem 'acts-as-taggable-on'
 gem 'carrierwave'
 gem 'capybara'
+# for enumerate
+gem "enumerate_it", "~> 1.0.3"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -41,6 +43,7 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem 'forgery'
   gem 'rspec-rails', "~> 2.0"
   gem 'factory_girl_rails'
   gem 'database_cleaner'
